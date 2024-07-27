@@ -10,7 +10,6 @@ console.error("erro de conexao", erro);
 
 conexao.once("open", () => {
     console.log("Conexao com o banco feita com sucesso.");
-    console.log(process.env.DB_CONNECTION);
 })
 
 const app = express();
