@@ -1,0 +1,249 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Api de Biblioteca",
+    "description": "Api para uma biblioteca.",
+    "termsOfService": "https://api-express-mongodb.vercel.app/",
+    "contact": {
+      "name": "Suport a devs",
+      "url": "https://api-express-mongodb.vercel.app/",
+      "email": "diegox300@gmail.com"
+    },
+    "license": {
+      "name": "Licença: GPLv3",
+      "url": "https://www.gnu.org/licenses/gpl-3.0.pt-br.html"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://virtserver.swaggerhub.com/DIEGOX300/biblioteca-api/1.0.0",
+      "description": "SwaggerHub API Auto Mocking"
+    },
+    {
+      "url": "https://api-express-mongodb.vercel.app/",
+      "description": "Api em PROD"
+    }
+  ],
+  "paths": {
+    "/livros": {
+      "get": {
+        "summary": "Recupera todos os livros.",
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Livros"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Adiciona um livro",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/livros_body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_201"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Livro não encontrado.",
+            "content": {
+              "application/json": {
+                "example": "Falha na requisição de criação do livro"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/livros/{id}": {
+      "get": {
+        "summary": "Recupera um livro por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Livros"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Livro não encontrado.",
+            "content": {
+              "application/json": {
+                "example": "Falha na pesquisa do livro"
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Editar um livro.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Livros"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "example": "message: Livro atualizado"
+              }
+            }
+          },
+          "500": {
+            "description": "Livro não encontrado.",
+            "content": {
+              "application/json": {
+                "example": "falha na atualização"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Deleta um livro.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "example": "message: Livro Excluido com sucesso."
+              }
+            }
+          },
+          "500": {
+            "description": "Erro ao Excluir livro.",
+            "content": {
+              "application/json": {
+                "example": "falha na exclução."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Livros": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "object"
+          },
+          "titulo": {
+            "type": "string"
+          },
+          "editora": {
+            "type": "string"
+          },
+          "preco": {
+            "type": "integer"
+          },
+          "pagina": {
+            "type": "integer"
+          }
+        }
+      },
+      "livros_body": {
+        "type": "object",
+        "properties": {
+          "titulo": {
+            "type": "string"
+          },
+          "editora": {
+            "type": "string"
+          },
+          "preco": {
+            "type": "integer"
+          },
+          "pagina": {
+            "type": "integer"
+          },
+          "autor": {
+            "type": "string"
+          }
+        }
+      },
+      "inline_response_201": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "object"
+          },
+          "nome": {
+            "type": "string"
+          },
+          "nacionalidade": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
